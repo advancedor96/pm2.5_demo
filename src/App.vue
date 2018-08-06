@@ -4,6 +4,7 @@
       <v-toolbar dark color="cyan darken-2" >
         <v-toolbar-title>教室空氣異常</v-toolbar-title>
         <v-spacer></v-spacer>
+        {{ time }}
         <img src="/static/Bxb_Logo.svg" alt="logo" class="logo">
       </v-toolbar>
 
@@ -59,6 +60,11 @@ export default {
   name: 'App',
   components: {
     WarnCard
+  },
+  data () {
+    return {
+      time: '1234'
+    }
   }
 }
 </script>
