@@ -1,5 +1,5 @@
 <template>
-<v-card color="cyan darken-1" class="white--text myCard" width="100" :style="{'background-color': color}">
+<v-card :color="color" class="white--text myCard" :width="width" >
   <div class="title">{{ title }}</div>
   <v-divider light></v-divider>
   <div class="val">{{ text }}</div>
@@ -23,9 +23,12 @@ export default {
     },
     color: {
       type: String,
-      default: function () {
-        return '3CC2C2'
-      }
+      default: 'd_cyan'
+
+    },
+    width: {
+      type: String,
+      default: '100'
     }
   }
 }
@@ -34,7 +37,6 @@ export default {
 <style>
   .myCard{
     border-radius: 10px;
-    background: #3CC2C2;
     display: inline-block;
     margin: 10px 6px;
   }

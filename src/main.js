@@ -6,7 +6,14 @@ import router from './router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 Vue.config.productionTip = false
-Vue.use(Vuetify)
+Vue.use(Vuetify, {
+  theme: {
+    d_cyan: '#3CC2C2',
+    d_green: '#09D342',
+    d_orange: '#FFB600',
+    d_red: '#BF0000'
+  }
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

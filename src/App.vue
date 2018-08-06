@@ -41,8 +41,11 @@
             PM2.5
           </div>
           <div class="card_wrapper">
-            <WarnCard v-for="i in 12" :key="i"/>
-            <WarnCard title="操場東側" text="良好" color="#09D342"/>
+            <WarnCard title="操場東側" text="良好" color="d_green" width="200"/>
+            <WarnCard title="操場西側" text="良好" color="d_green" width="200"/>
+            <WarnCard title="活動中心A" text="良好" color="d_orange" width="200"/>
+            <WarnCard title="活動中心B" text="良好" color="d_orange" width="200"/>
+            <WarnCard title="體育館" text="良好" color="d_red" width="200"/>
           </div>
         </span>
       </div>
@@ -72,7 +75,7 @@ export default {
 }
 .my_container{
   width: 100vw;
-  height: calc( 100vh - 56px);
+  height: calc( 100vh - 64px);
   background-color: #f2f2f2;
   display: flex;
   .caterogy_title{
@@ -85,8 +88,8 @@ export default {
   .col{
     display: inline-block;
     width: calc( 100vw / 4);
-    height: 100%;
     margin: 20px 0;
+    margin-bottom: 0;
     border-right: 1px solid rgba(0,0,0,0.2);
     &:nth-child(4){
       border-right: none;
