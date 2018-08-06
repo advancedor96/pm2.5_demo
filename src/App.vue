@@ -4,8 +4,7 @@
       <v-toolbar dark color="cyan darken-2" >
         <v-toolbar-title>教室空氣異常</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-toolbar-items class="hidden-sm-and-down">
-        </v-toolbar-items>
+        <img src="/static/Bxb_Logo.svg" alt="logo" class="logo">
       </v-toolbar>
 
       <div class="my_container">
@@ -43,6 +42,7 @@
           </div>
           <div class="card_wrapper">
             <WarnCard v-for="i in 12" :key="i"/>
+            <WarnCard title="操場東側" text="良好" color="#09D342"/>
           </div>
         </span>
       </div>
@@ -67,12 +67,16 @@ export default {
 .v-toolbar__title{
   font-size: 30px;
 }
+.logo{
+  width: 130px;
+}
 .my_container{
   width: 100vw;
   height: calc( 100vh - 56px);
   background-color: #f2f2f2;
   display: flex;
   .caterogy_title{
+    color: #424242;
     font-size: 31px;
     text-align: center;
     padding: 23px 20px;
