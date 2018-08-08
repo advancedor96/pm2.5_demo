@@ -8,7 +8,7 @@
   <v-card v-else :color="getPm25Color" class="white--text myCard" :width="width" >
     <div class="title">{{ title }}</div>
     <v-divider light></v-divider>
-    <div class="val">{{ getPm25Text }}</div>
+    <div class="val " :class="{'white--text': getPm25Color==='d_red'}">{{ getPm25Text }}</div>
   </v-card>
 
 </template>

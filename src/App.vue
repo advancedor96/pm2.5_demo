@@ -45,7 +45,7 @@
             <span>PM2.5</span>
           </div>
           <div class="card_wrapper">
-            <WarnCard v-for="(item, i) in pm25" :key="i" type="pm25" :title="item.name" :val="item.value"/>
+            <WarnCard v-for="(item, i) in pm25" :key="i" type="pm25" :title="item.name" :val="item.value" width="200"/>
             <!-- <WarnCard title="操場東側" text="良好" color="d_green" width="200"/>
             <WarnCard title="操場西側" text="良好" color="d_green" width="200"/>
             <WarnCard title="活動中心A" text="良好" color="d_orange" width="200"/>
@@ -88,7 +88,7 @@ export default {
       axios.get(co2Url).then(res => {
         if (res.status === 200) {
           this.co2 = res.data.sort((a, b) => (a.id - b.id))
-          console.log(this.co2)
+          console.log('ok')
         } else {
           throw new Error('抓Co2 API發生錯誤')
         }
