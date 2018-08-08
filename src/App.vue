@@ -11,8 +11,9 @@
       <div class="my_container">
         <span class="col">
           <div class="caterogy_title">
-            <v-icon x-large>accessibility</v-icon>
-            二氧化碳
+            <!-- <span class="icon co2"></span> -->
+            <img src="/static/img/co2.png" class="icon co2" alt="">
+            <span>二氧化碳</span>
           </div>
           <div class="card_wrapper">
             <WarnCard v-for="i in 12" :key="i"/>
@@ -20,8 +21,9 @@
         </span>
         <span class="col">
           <div class="caterogy_title">
-            <v-icon x-large>accessibility</v-icon>
-            溫度
+            <img src="/static/img/temp.png" class="icon temp" alt="">
+            <span>溫度</span>
+
           </div>
           <div class="card_wrapper">
             <WarnCard v-for="i in 12" :key="i"/>
@@ -29,8 +31,9 @@
         </span>
         <span class="col">
           <div class="caterogy_title">
-            <v-icon x-large>accessibility</v-icon>
-            濕度
+            <img src="/static/img/humidity.png" class="icon humidity" alt="">
+            <span>濕度</span>
+
           </div>
           <div class="card_wrapper">
             <WarnCard v-for="i in 12" :key="i"/>
@@ -38,8 +41,8 @@
         </span>
         <span class="col">
           <div class="caterogy_title">
-            <v-icon x-large>accessibility</v-icon>
-            PM2.5
+            <img src="/static/img/pm25.png" class="icon pm25" alt="">
+            <span>PM2.5</span>
           </div>
           <div class="card_wrapper">
             <WarnCard title="操場東側" text="良好" color="d_green" width="200"/>
@@ -90,6 +93,17 @@ export default {
     text-align: center;
     padding: 23px 20px;
     font-weight: bolder;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .icon{
+      margin-right: 30px;
+      height:45px;
+      &.co2{
+        height:45px;
+      }
+    }
+
   }
   .col{
     display: inline-block;
@@ -100,6 +114,7 @@ export default {
     &:nth-child(4){
       border-right: none;
     }
+
   }
   .card_wrapper{
     display: flex;
