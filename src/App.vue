@@ -16,7 +16,7 @@
             <span>二氧化碳</span>
           </div>
           <div class="card_wrapper">
-            <WarnCard v-for="(item, i) in co2" :key="i" type="co2" :title="item.name" :text="item.value.toString()"/>
+            <WarnCard v-for="(item, i) in co2" :key="i" type="co2" :title="item.name" :val="item.value"/>
           </div>
         </span>
         <span class="col">
@@ -26,7 +26,7 @@
 
           </div>
           <div class="card_wrapper">
-            <WarnCard v-for="i in 12" :key="i"/>
+            <WarnCard v-for="(item, i) in temp" :key="i" type="temp" :title="item.name" :val="item.value"/>
           </div>
         </span>
         <span class="col">
@@ -36,7 +36,7 @@
 
           </div>
           <div class="card_wrapper">
-            <WarnCard v-for="i in 12" :key="i"/>
+            <WarnCard v-for="(item, i) in humidity" :key="i" type="humidity" :title="item.name" :val="item.value"/>
           </div>
         </span>
         <span class="col">
@@ -45,11 +45,12 @@
             <span>PM2.5</span>
           </div>
           <div class="card_wrapper">
-            <WarnCard title="操場東側" text="良好" color="d_green" width="200"/>
+            <WarnCard v-for="(item, i) in pm25" :key="i" type="pm25" :title="item.name" :val="item.value"/>
+            <!-- <WarnCard title="操場東側" text="良好" color="d_green" width="200"/>
             <WarnCard title="操場西側" text="良好" color="d_green" width="200"/>
             <WarnCard title="活動中心A" text="良好" color="d_orange" width="200"/>
             <WarnCard title="活動中心B" text="良好" color="d_orange" width="200"/>
-            <WarnCard title="體育館" text="良好" color="d_red" width="200"/>
+            <WarnCard title="體育館" text="良好" color="d_red" width="200"/> -->
           </div>
         </span>
       </div>
