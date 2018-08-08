@@ -16,7 +16,7 @@
             <span>二氧化碳</span>
           </div>
           <div class="card_wrapper">
-            <WarnCard v-for="i in 12" :key="i"/>
+            <WarnCard v-for="(item, i) in co2" :key="i" type="co2" :title="item.name" :text="item.value.toString()"/>
           </div>
         </span>
         <span class="col">
@@ -59,6 +59,8 @@
 
 <script>
 import WarnCard from '@/components/WarnCard'
+import axios from 'axios'
+
 export default {
   name: 'App',
   components: {
@@ -66,7 +68,71 @@ export default {
   },
   data () {
     return {
-      time: '1234'
+      time: '1234',
+      co2: [],
+      temp: [],
+      humidity: [],
+      pm25: []
+    }
+  },
+  created () {
+    this.getCo2()
+    this.getTemp()
+    this.getHumidity()
+    this.getPm25()
+  },
+  methods: {
+    getCo2 () {
+      let co2Url = 'http://localhost:3000/co2'
+      axios.get(co2Url).then(res => {
+        if (res.status === 200) {
+          this.co2 = res.data.sort((a, b) => (a.id - b.id))
+          console.log(this.co2)
+        } else {
+          throw new Error('抓Co2 API發生錯誤')
+        }
+      }).catch(e => {
+        alert(e)
+      })
+    },
+    getTemp () {
+      let tempUrl = 'http://localhost:3000/temperature'
+      axios.get(tempUrl).then(res => {
+        if (res.status === 200) {
+          this.temp = res.data
+          console.log('ok')
+        } else {
+          throw new Error('抓tempUrl API發生錯誤')
+        }
+      }).catch(e => {
+        alert(e)
+      })
+    },
+    getHumidity () {
+      let tempUrl = 'http://localhost:3000/humidity'
+      axios.get(tempUrl).then(res => {
+        if (res.status === 200) {
+          this.humidity = res.data
+          console.log('ok')
+        } else {
+          throw new Error('抓Humidity  API發生錯誤')
+        }
+      }).catch(e => {
+        alert(e)
+      })
+    },
+    getPm25 () {
+      let tempUrl = 'http://localhost:3000/pm25'
+      axios.get(tempUrl).then(res => {
+        if (res.status === 200) {
+          this.pm25 = res.data
+          console.log('ok')
+        } else {
+          throw new Error('抓 pm25 API發生錯誤')
+        }
+      }).catch(e => {
+        alert(e)
+      })
     }
   }
 }

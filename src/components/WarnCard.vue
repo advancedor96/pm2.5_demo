@@ -2,7 +2,7 @@
 <v-card :color="color" class="white--text myCard" :width="width" >
   <div class="title">{{ title }}</div>
   <v-divider light></v-divider>
-  <div class="val">{{ text }}</div>
+  <div class="val">{{ text }} {{ getUnit }}</div>
 </v-card>
 </template>
 
@@ -29,12 +29,25 @@ export default {
     width: {
       type: String,
       default: '100'
+    },
+    type: {
+      type: String,
+      default: 'co2'
+    }
+  },
+  computed: {
+    getUnit () {
+      if (this.type === 'co2') return 'ppm'
+      else if (this.type === 'temp') return '℃'
+      else if (this.type === 'humidty') return '%'
+      else return ''
     }
   }
+
 }
 </script>
 
-<style>
+<style lang="scss">
   .myCard{
     border-radius: 10px;
     display: inline-block;
@@ -48,5 +61,6 @@ export default {
     padding-left: 8px;
     color: black;
     font-size: 16px;
+
   }
 </style>
