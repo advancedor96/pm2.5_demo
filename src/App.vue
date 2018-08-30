@@ -90,7 +90,8 @@ export default {
       axios.get(Url).then(res => {
         console.log('res:', res)
 
-        if (res.status === 200) {
+        if (res.status === 200 || res.status === 304) {
+          alertify.success('成功連接資料')
           this.co2 = res.data.co2.sort((a, b) => (a.id - b.id))
           this.temp = res.data.temperature
           this.humidity = res.data.humidity
