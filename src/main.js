@@ -9,6 +9,7 @@ import 'vuetify/dist/vuetify.min.css'
 import 'alertifyjs/build/css/alertify.min.css'
 import 'alertifyjs/build/css/themes/default.min.css'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
+import '@/assets/css/notosans-fontface.css'
 Vue.config.productionTip = false
 Vue.use(Vuetify, {
   theme: {

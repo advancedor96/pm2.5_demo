@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-      <v-toolbar dark color="cyan darken-2" >
+      <v-toolbar dark color="cyan darken-2" :style="{flexGrow: '0'}">
         <v-toolbar-title>教室空氣異常</v-toolbar-title>
         <v-spacer></v-spacer>
         {{ time }}
@@ -9,6 +9,7 @@
       </v-toolbar>
 
       <div class="my_container">
+
         <span class="col">
           <div class="caterogy_title">
             <!-- <span class="icon co2"></span> -->
@@ -16,8 +17,9 @@
             <span>二氧化碳</span>
           </div>
           <div class="card_wrapper">
-            <span v-if="co2 === null">沒有資料</span>
+            <span class="nodata" v-if="co2 === null">沒有資料</span>
             <WarnCard v-for="(item, i) in co2" :key="i" type="co2" :title="item.name" :val="item.value"/>
+
           </div>
         </span>
         <span class="col">
@@ -66,11 +68,12 @@
 import WarnCard from '@/components/WarnCard'
 import alertify from 'alertifyjs/build/alertify.min.js'
 import axios from 'axios'
+import { Slider, SliderItem } from 'vue-easy-slider'
 
 export default {
   name: 'App',
   components: {
-    WarnCard
+    WarnCard, Slider, SliderItem
   },
   data () {
     return {
@@ -86,7 +89,8 @@ export default {
   },
   methods: {
     getData () {
-      let Url = '/api/Client?data1=air'
+      let Url = 'http://localhost:3000/air'
+      // let Url = '/api/Client?data1=air'
       axios.get(Url).then(res => {
         console.log('res:', res)
 
@@ -110,6 +114,7 @@ export default {
 
 <style lang="scss">
 *{
+  font-family: 'Roboto', 'Noto Sans', "Microsoft JhengHei";
   box-sizing: border-box;
 }
 .v-toolbar__title{
@@ -120,15 +125,17 @@ export default {
 }
 .my_container{
   width: 100%;
-  height: 100%;
   background-color: #f2f2f2;
   display: flex;
+  flex-grow: 1;
   .caterogy_title{
+    width: 100%;
+    height: 92px;
     color: #424242;
     font-size: 31px;
+    font-weight: 500;
     text-align: center;
     padding: 23px 20px;
-    font-weight: bolder;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -144,7 +151,7 @@ export default {
   .col{
     display: inline-block;
     width: calc( 100vw / 4);
-    margin: 20px 0;
+    padding: 20px 0 0 0;
     margin-bottom: 0;
     border-right: 1px solid rgba(0,0,0,0.2);
     &:nth-child(4){
@@ -156,6 +163,14 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    width: 100%;
+    overflow-y: auto;
+    align-content: flex-start;
+    height: 730px;
+
+  }
+  .nodata{
+    font-size: 20px;
   }
 }
 </style>
