@@ -18,7 +18,15 @@
           </div>
           <div class="card_wrapper">
             <span class="nodata" v-if="co2 === null">沒有資料</span>
-            <WarnCard v-for="(item, i) in co2" :key="i" type="co2" :title="item.name" :val="item.value"/>
+            <swiper :options="swiperOption">
+              <swiper-slide>
+                <WarnCard v-for="(item, i) in co2.slice(0,14)" :key="i" type="co2" :title="item.name" :val="item.value"/>
+              </swiper-slide>
+              <swiper-slide>
+                <WarnCard v-for="(item, i) in co2.slice(14, co2.length)" :key="i" type="co2" :title="item.name" :val="item.value"/>
+              </swiper-slide>
+              <div class="swiper-pagination" slot="pagination"></div>
+            </swiper>
 
           </div>
         </span>
@@ -29,7 +37,7 @@
 
           </div>
           <div class="card_wrapper">
-            <span v-if="temp === null">沒有資料</span>
+            <span  class="nodata" v-if="temp === null">沒有資料</span>
             <WarnCard v-for="(item, i) in temp" :key="i" type="temp" :title="item.name" :val="item.value"/>
           </div>
         </span>
@@ -40,7 +48,7 @@
 
           </div>
           <div class="card_wrapper">
-            <span v-if="humidity === null">沒有資料</span>
+            <span class="nodata"  v-if="humidity === null">沒有資料</span>
             <WarnCard v-for="(item, i) in humidity" :key="i" type="humidity" :title="item.name" :val="item.value"/>
           </div>
         </span>
@@ -50,7 +58,7 @@
             <span>PM2.5</span>
           </div>
           <div class="card_wrapper">
-            <span v-if="pm25 === null">沒有資料</span>
+            <span  class="nodata" v-if="pm25 === null">沒有資料</span>
             <WarnCard v-for="(item, i) in pm25" :key="i" type="pm25" :title="item.name" :val="item.value" width="200"/>
             <!-- <WarnCard title="操場東側" text="良好" color="d_green" width="200"/>
             <WarnCard title="操場西側" text="良好" color="d_green" width="200"/>
@@ -68,15 +76,28 @@
 import WarnCard from '@/components/WarnCard'
 import alertify from 'alertifyjs/build/alertify.min.js'
 import axios from 'axios'
-import { Slider, SliderItem } from 'vue-easy-slider'
+import 'swiper/dist/css/swiper.css'
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
 
 export default {
   name: 'App',
   components: {
-    WarnCard, Slider, SliderItem
+    WarnCard, swiper, swiperSlide
   },
   data () {
     return {
+      swiperOption: {
+        spaceBetween: 0,
+        centeredSlides: true,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        }
+      },
       time: '1234',
       co2: [],
       temp: [],
@@ -86,11 +107,16 @@ export default {
   },
   created () {
     this.getData()
+    console.log('process.env.NODE_ENV', process.env.NODE_ENV)
   },
   methods: {
     getData () {
-      let Url = 'http://localhost:3000/air'
-      // let Url = '/api/Client?data1=air'
+      let Url = ''
+      if (process.env.NODE_ENV === 'production') {
+        Url = '/Client?data1=air'
+      } else {
+        Url = '/api/Client?data1=air'
+      }
       axios.get(Url).then(res => {
         console.log('res:', res)
 
@@ -116,6 +142,13 @@ export default {
 *{
   font-family: 'Roboto', 'Noto Sans', "Microsoft JhengHei";
   box-sizing: border-box;
+}
+.swiper-slide{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: flex-start;
 }
 .v-toolbar__title{
   font-size: 30px;
