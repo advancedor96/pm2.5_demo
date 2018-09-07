@@ -18,16 +18,14 @@
           </div>
           <div class="card_wrapper">
             <span class="nodata" v-if="co2 === null">沒有資料</span>
-            <swiper :options="swiperOption">
-              <swiper-slide>
-                <WarnCard v-for="(item, i) in co2.slice(0,14)" :key="i" type="co2" :title="item.name" :val="item.value"/>
+
+            <swiper v-else :options="swiperOption" class="swiper_ddddd">
+              <swiper-slide v-for="i in this.numOfCo2Slider" :key="i">
+                <WarnCard v-for="(item, idx) in co2.slice( (i-1)*14, (i-1)*14+14)" :key="idx" type="co2" :title="item.name" :val="item.value"/>
               </swiper-slide>
-              <swiper-slide>
-                <WarnCard v-for="(item, i) in co2.slice(14, co2.length)" :key="i" type="co2" :title="item.name" :val="item.value"/>
-              </swiper-slide>
+
               <div class="swiper-pagination" slot="pagination"></div>
             </swiper>
-
           </div>
         </span>
         <span class="col">
@@ -38,7 +36,13 @@
           </div>
           <div class="card_wrapper">
             <span  class="nodata" v-if="temp === null">沒有資料</span>
-            <WarnCard v-for="(item, i) in temp" :key="i" type="temp" :title="item.name" :val="item.value"/>
+
+            <swiper v-else :options="swiperOption" class="swiper_ddddd">
+              <swiper-slide v-for="i in this.numOfTempSlider" :key="i">
+                <WarnCard v-for="(item, idx) in temp.slice( (i-1)*14, (i-1)*14+14)" :key="idx" type="temp" :title="item.name" :val="item.value"/>
+              </swiper-slide>
+              <div class="swiper-pagination" slot="pagination"></div>
+            </swiper>
           </div>
         </span>
         <span class="col">
@@ -49,7 +53,14 @@
           </div>
           <div class="card_wrapper">
             <span class="nodata"  v-if="humidity === null">沒有資料</span>
-            <WarnCard v-for="(item, i) in humidity" :key="i" type="humidity" :title="item.name" :val="item.value"/>
+
+            <swiper v-else :options="swiperOption" class="swiper_ddddd">
+              <swiper-slide v-for="i in this.numOfHumiditySlider" :key="i">
+                <WarnCard v-for="(item, idx) in humidity.slice( (i-1)*14, (i-1)*14+14)" :key="idx" type="humidity" :title="item.name" :val="item.value"/>
+              </swiper-slide>
+              <div class="swiper-pagination" slot="pagination"></div>
+            </swiper>
+
           </div>
         </span>
         <span class="col">
@@ -59,7 +70,14 @@
           </div>
           <div class="card_wrapper">
             <span  class="nodata" v-if="pm25 === null">沒有資料</span>
-            <WarnCard v-for="(item, i) in pm25" :key="i" type="pm25" :title="item.name" :val="item.value" width="200"/>
+            <swiper v-else :options="swiperOption" class="swiper_ddddd">
+              <swiper-slide v-for="i in this.numOfPm25Slider" :key="i">
+                <WarnCard v-for="(item, idx) in pm25.slice( (i-1)*14, (i-1)*14+14)" :key="idx" type="pm25" :title="item.name" :val="item.value" width="200" />
+              </swiper-slide>
+              <div class="swiper-pagination" slot="pagination"></div>
+            </swiper>
+
+            <!-- <WarnCard v-for="(item, i) in pm25" :key="i" type="pm25" :title="item.name" :val="item.value" width="200"/> -->
             <!-- <WarnCard title="操場東側" text="良好" color="d_green" width="200"/>
             <WarnCard title="操場西側" text="良好" color="d_green" width="200"/>
             <WarnCard title="活動中心A" text="良好" color="d_orange" width="200"/>
@@ -90,7 +108,7 @@ export default {
         spaceBetween: 0,
         centeredSlides: true,
         autoplay: {
-          delay: 5000,
+          delay: 1000 * 6, // 切換頁面間隔幾秒
           disableOnInteraction: false
         },
         pagination: {
@@ -107,31 +125,73 @@ export default {
   },
   created () {
     this.getData()
-    console.log('process.env.NODE_ENV', process.env.NODE_ENV)
+    // console.log('process.env.NODE_ENV', process.env.NODE_ENV)
+  },
+  computed: {
+    // 計算Co2 的Swiper 總共要有幾頁(每頁14個)
+    numOfCo2Slider () {
+      let divide_num = Math.floor(this.co2.length / 14)
+      let mod_num = this.co2.length % 14
+      let result = (mod_num !== 0) ? divide_num + 1 : divide_num
+      return result
+    },
+    // 計算temp 的Swiper 總共要有幾頁(每頁14個)
+    numOfTempSlider () {
+      let divide_num = Math.floor(this.temp.length / 14)
+      let mod_num = this.temp.length % 14
+      let result = (mod_num !== 0) ? divide_num + 1 : divide_num
+      return result
+    },
+    // 計算humidity 的Swiper 總共要有幾頁(每頁14個)
+    numOfHumiditySlider () {
+      let divide_num = Math.floor(this.humidity.length / 14)
+      let mod_num = this.humidity.length % 14
+      let result = (mod_num !== 0) ? divide_num + 1 : divide_num
+      return result
+    },
+    // 計算 pm25 的Swiper 總共要有幾頁(每頁14個)
+    numOfPm25Slider () {
+      let divide_num = Math.floor(this.pm25.length / 7)
+      let mod_num = this.pm25.length % 7
+      let result = (mod_num !== 0) ? divide_num + 1 : divide_num
+      return result
+    }
   },
   methods: {
-    getData () {
+    async getData () {
       let Url = ''
       if (process.env.NODE_ENV === 'production') {
         Url = '/Client?data1=air'
       } else {
-        Url = '/api/Client?data1=air'
+        // Url = '/api/Client?data1=air' // 在本機讀真實資料
+        Url = 'http://localhost:3000/air' // 使用 json-server
       }
-      axios.get(Url).then(res => {
-        console.log('res:', res)
-
-        if (res.status === 200 || res.status === 304) {
-          alertify.success('成功連接資料')
-          this.co2 = res.data.co2.sort((a, b) => (a.id - b.id))
-          this.temp = res.data.temperature
-          this.humidity = res.data.humidity
-          this.pm25 = res.data.pm25
-        } else {
-          throw new Error('連接資料發生錯誤')
-        }
-      }).catch(e => {
+      try {
+        const res = await axios.get(Url)
+        alertify.success('成功連接資料')
+        this.co2 = res.data.co2.sort((a, b) => (a.id - b.id))
+        this.temp = res.data.temperature
+        this.humidity = res.data.humidity
+        this.pm25 = res.data.pm25
+      } catch (e) {
         alertify.error(e.message)
-      })
+      }
+
+      // axios.get(Url).then(res => {
+      //   console.log('res:', res)
+
+      //   if (res.status === 200 || res.status === 304) {
+      //     alertify.success('成功連接資料')
+      //     this.co2 = res.data.co2.sort((a, b) => (a.id - b.id))
+      //     this.temp = res.data.temperature
+      //     this.humidity = res.data.humidity
+      //     this.pm25 = res.data.pm25
+      //   } else {
+      //     throw new Error('連接資料發生錯誤')
+      //   }
+      // }).catch(e => {
+      //   alertify.error(e.message)
+      // })
     }
 
   }
@@ -142,6 +202,9 @@ export default {
 *{
   font-family: 'Roboto', 'Noto Sans', "Microsoft JhengHei";
   box-sizing: border-box;
+}
+.swiper_ddddd{
+  height: 100%;
 }
 .swiper-slide{
   display: flex;
@@ -199,6 +262,7 @@ export default {
     width: 100%;
     overflow-y: auto;
     align-content: flex-start;
+    align-items: flex-start;
     height: 730px;
 
   }
