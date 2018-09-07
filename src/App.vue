@@ -2,89 +2,92 @@
   <div id="app">
     <v-app>
       <v-toolbar dark color="cyan darken-2" :style="{flexGrow: '0'}">
-        <v-toolbar-title>教室空氣異常</v-toolbar-title>
-        <v-spacer></v-spacer>
-        {{ time }}
-        <img src="/static/Bxb_Logo.svg" alt="logo" class="logo">
+        <div class="my_container">
+          <v-toolbar-title>教室空氣異常</v-toolbar-title>
+            <v-spacer></v-spacer>
+            {{ time }}
+            <img src="/static/Bxb_Logo.svg" alt="logo" class="logo">
+        </div>
       </v-toolbar>
 
-      <div class="my_container">
+      <div class="my_main">
+        <div class="my_container">
+          <span class="col">
+            <div class="caterogy_title">
+              <!-- <span class="icon co2"></span> -->
+              <img src="/static/img/co2.png" class="icon co2" alt="">
+              <span>二氧化碳</span>
+            </div>
+            <div class="card_wrapper">
+              <span class="nodata" v-if="co2 === null">沒有資料</span>
 
-        <span class="col">
-          <div class="caterogy_title">
-            <!-- <span class="icon co2"></span> -->
-            <img src="/static/img/co2.png" class="icon co2" alt="">
-            <span>二氧化碳</span>
-          </div>
-          <div class="card_wrapper">
-            <span class="nodata" v-if="co2 === null">沒有資料</span>
+              <swiper v-else :options="swiperOption" class="swiper_ddddd">
+                <swiper-slide v-for="i in this.numOfCo2Slider" :key="i">
+                  <WarnCard v-for="(item, idx) in co2.slice( (i-1)*14, (i-1)*14+14)" :key="idx" type="co2" :title="item.name" :val="item.value"/>
+                </swiper-slide>
 
-            <swiper v-else :options="swiperOption" class="swiper_ddddd">
-              <swiper-slide v-for="i in this.numOfCo2Slider" :key="i">
-                <WarnCard v-for="(item, idx) in co2.slice( (i-1)*14, (i-1)*14+14)" :key="idx" type="co2" :title="item.name" :val="item.value"/>
-              </swiper-slide>
+                <div class="swiper-pagination" slot="pagination"></div>
+              </swiper>
+            </div>
+          </span>
+          <span class="col">
+            <div class="caterogy_title">
+              <img src="/static/img/temp.png" class="icon temp" alt="">
+              <span>溫度</span>
 
-              <div class="swiper-pagination" slot="pagination"></div>
-            </swiper>
-          </div>
-        </span>
-        <span class="col">
-          <div class="caterogy_title">
-            <img src="/static/img/temp.png" class="icon temp" alt="">
-            <span>溫度</span>
+            </div>
+            <div class="card_wrapper">
+              <span  class="nodata" v-if="temp === null">沒有資料</span>
 
-          </div>
-          <div class="card_wrapper">
-            <span  class="nodata" v-if="temp === null">沒有資料</span>
+              <swiper v-else :options="swiperOption" class="swiper_ddddd">
+                <swiper-slide v-for="i in this.numOfTempSlider" :key="i">
+                  <WarnCard v-for="(item, idx) in temp.slice( (i-1)*14, (i-1)*14+14)" :key="idx" type="temp" :title="item.name" :val="item.value"/>
+                </swiper-slide>
+                <div class="swiper-pagination" slot="pagination"></div>
+              </swiper>
+            </div>
+          </span>
+          <span class="col">
+            <div class="caterogy_title">
+              <img src="/static/img/humidity.png" class="icon humidity" alt="">
+              <span>濕度</span>
 
-            <swiper v-else :options="swiperOption" class="swiper_ddddd">
-              <swiper-slide v-for="i in this.numOfTempSlider" :key="i">
-                <WarnCard v-for="(item, idx) in temp.slice( (i-1)*14, (i-1)*14+14)" :key="idx" type="temp" :title="item.name" :val="item.value"/>
-              </swiper-slide>
-              <div class="swiper-pagination" slot="pagination"></div>
-            </swiper>
-          </div>
-        </span>
-        <span class="col">
-          <div class="caterogy_title">
-            <img src="/static/img/humidity.png" class="icon humidity" alt="">
-            <span>濕度</span>
+            </div>
+            <div class="card_wrapper">
+              <span class="nodata"  v-if="humidity === null">沒有資料</span>
 
-          </div>
-          <div class="card_wrapper">
-            <span class="nodata"  v-if="humidity === null">沒有資料</span>
+              <swiper v-else :options="swiperOption" class="swiper_ddddd">
+                <swiper-slide v-for="i in this.numOfHumiditySlider" :key="i">
+                  <WarnCard v-for="(item, idx) in humidity.slice( (i-1)*14, (i-1)*14+14)" :key="idx" type="humidity" :title="item.name" :val="item.value"/>
+                </swiper-slide>
+                <div class="swiper-pagination" slot="pagination"></div>
+              </swiper>
 
-            <swiper v-else :options="swiperOption" class="swiper_ddddd">
-              <swiper-slide v-for="i in this.numOfHumiditySlider" :key="i">
-                <WarnCard v-for="(item, idx) in humidity.slice( (i-1)*14, (i-1)*14+14)" :key="idx" type="humidity" :title="item.name" :val="item.value"/>
-              </swiper-slide>
-              <div class="swiper-pagination" slot="pagination"></div>
-            </swiper>
+            </div>
+          </span>
+          <span class="col">
+            <div class="caterogy_title">
+              <img src="/static/img/pm25.png" class="icon pm25" alt="">
+              <span>PM2.5</span>
+            </div>
+            <div class="card_wrapper">
+              <span  class="nodata" v-if="pm25 === null">沒有資料</span>
+              <swiper v-else :options="swiperOption" class="swiper_ddddd">
+                <swiper-slide v-for="i in this.numOfPm25Slider" :key="i">
+                  <WarnCard v-for="(item, idx) in pm25.slice( (i-1)*14, (i-1)*14+14)" :key="idx" type="pm25" :title="item.name" :val="item.value" width="200" />
+                </swiper-slide>
+                <div class="swiper-pagination" slot="pagination"></div>
+              </swiper>
 
-          </div>
-        </span>
-        <span class="col">
-          <div class="caterogy_title">
-            <img src="/static/img/pm25.png" class="icon pm25" alt="">
-            <span>PM2.5</span>
-          </div>
-          <div class="card_wrapper">
-            <span  class="nodata" v-if="pm25 === null">沒有資料</span>
-            <swiper v-else :options="swiperOption" class="swiper_ddddd">
-              <swiper-slide v-for="i in this.numOfPm25Slider" :key="i">
-                <WarnCard v-for="(item, idx) in pm25.slice( (i-1)*14, (i-1)*14+14)" :key="idx" type="pm25" :title="item.name" :val="item.value" width="200" />
-              </swiper-slide>
-              <div class="swiper-pagination" slot="pagination"></div>
-            </swiper>
-
-            <!-- <WarnCard v-for="(item, i) in pm25" :key="i" type="pm25" :title="item.name" :val="item.value" width="200"/> -->
-            <!-- <WarnCard title="操場東側" text="良好" color="d_green" width="200"/>
-            <WarnCard title="操場西側" text="良好" color="d_green" width="200"/>
-            <WarnCard title="活動中心A" text="良好" color="d_orange" width="200"/>
-            <WarnCard title="活動中心B" text="良好" color="d_orange" width="200"/>
-            <WarnCard title="體育館" text="良好" color="d_red" width="200"/> -->
-          </div>
-        </span>
+              <!-- <WarnCard v-for="(item, i) in pm25" :key="i" type="pm25" :title="item.name" :val="item.value" width="200"/> -->
+              <!-- <WarnCard title="操場東側" text="良好" color="d_green" width="200"/>
+              <WarnCard title="操場西側" text="良好" color="d_green" width="200"/>
+              <WarnCard title="活動中心A" text="良好" color="d_orange" width="200"/>
+              <WarnCard title="活動中心B" text="良好" color="d_orange" width="200"/>
+              <WarnCard title="體育館" text="良好" color="d_red" width="200"/> -->
+            </div>
+          </span>
+        </div>
       </div>
     </v-app>
   </div>
@@ -199,6 +202,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/sass/all.scss';
+
 *{
   font-family: 'Roboto', 'Noto Sans', "Microsoft JhengHei";
   box-sizing: border-box;
@@ -213,16 +218,27 @@ export default {
   align-items: flex-start;
   align-content: flex-start;
 }
-.v-toolbar__title{
-  font-size: 30px;
+.v-toolbar__content{ // v-toolbar 多出來的 div 樣式
+  justify-content: center;
+  .v-toolbar__title{
+    font-size: 30px;
+  }
 }
 .logo{
   width: 130px;
 }
 .my_container{
+  max-width: 1300px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.my_main{
   width: 100%;
   background-color: #f2f2f2;
   display: flex;
+  justify-content: center;
   flex-grow: 1;
   .caterogy_title{
     width: 100%;
@@ -246,12 +262,14 @@ export default {
   }
   .col{
     display: inline-block;
-    width: calc( 100vw / 4);
+    width:  $containerWidth / 4;
+    min-width: $containerWidth / 4;
+    max-width: $containerWidth / 4;
     padding: 20px 0 0 0;
     margin-bottom: 0;
     border-right: 1px solid rgba(0,0,0,0.2);
-    &:nth-child(4){
-      border-right: none;
+    &:nth-child(1){
+      border-left: 1px solid rgba(0,0,0,0.2);
     }
 
   }
