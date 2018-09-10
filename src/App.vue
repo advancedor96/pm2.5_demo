@@ -120,7 +120,7 @@ export default {
           clickable: true
         }
       },
-      time: '1234',
+      time: '',
       co2: [],
       temp: [],
       humidity: [],
@@ -129,6 +129,12 @@ export default {
   },
   created () {
     this.getData()
+    let that = this
+    setTimeout(function repeat () {
+      that.getData()
+      setTimeout(repeat, 30 * 1000)
+    }, 30 * 1000)
+
     // console.log('process.env.NODE_ENV', process.env.NODE_ENV)
   },
   computed: {
@@ -167,8 +173,8 @@ export default {
       if (process.env.NODE_ENV === 'production') {
         Url = '/Client?data1=air'
       } else {
-        // Url = '/api/Client?data1=air' // 在本機讀真實資料
-        Url = 'http://localhost:3000/air' // 使用 json-server
+        Url = '/api/Client?data1=air' // 在本機讀真實資料
+        // Url = 'http://localhost:3000/air' // 使用 json-server
       }
       try {
         const res = await axios.get(Url)
@@ -180,22 +186,6 @@ export default {
       } catch (e) {
         alertify.error(e.message)
       }
-
-      // axios.get(Url).then(res => {
-      //   console.log('res:', res)
-
-      //   if (res.status === 200 || res.status === 304) {
-      //     alertify.success('成功連接資料')
-      //     this.co2 = res.data.co2.sort((a, b) => (a.id - b.id))
-      //     this.temp = res.data.temperature
-      //     this.humidity = res.data.humidity
-      //     this.pm25 = res.data.pm25
-      //   } else {
-      //     throw new Error('連接資料發生錯誤')
-      //   }
-      // }).catch(e => {
-      //   alertify.error(e.message)
-      // })
     }
 
   }
