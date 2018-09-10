@@ -19,7 +19,7 @@
               <span>二氧化碳</span>
             </div>
             <div class="card_wrapper">
-              <span class="nodata" v-if="co2 === null">沒有資料</span>
+              <span class="nodata" v-if="co2 === null || !co2.length">沒有資料</span>
 
               <swiper v-else :options="swiperOption" class="swiper_ddddd">
                 <swiper-slide v-for="i in this.numOfCo2Slider" :key="i">
@@ -37,7 +37,7 @@
 
             </div>
             <div class="card_wrapper">
-              <span  class="nodata" v-if="temp === null">沒有資料</span>
+              <span  class="nodata" v-if="temp === null || !temp.length">沒有資料</span>
 
               <swiper v-else :options="swiperOption" class="swiper_ddddd">
                 <swiper-slide v-for="i in this.numOfTempSlider" :key="i">
@@ -54,7 +54,7 @@
 
             </div>
             <div class="card_wrapper">
-              <span class="nodata"  v-if="humidity === null">沒有資料</span>
+              <span class="nodata"  v-if="humidity === null || !humidity.length">沒有資料</span>
 
               <swiper v-else :options="swiperOption" class="swiper_ddddd">
                 <swiper-slide v-for="i in this.numOfHumiditySlider" :key="i">
@@ -71,7 +71,7 @@
               <span>PM2.5</span>
             </div>
             <div class="card_wrapper">
-              <span  class="nodata" v-if="pm25 === null">沒有資料</span>
+              <span  class="nodata" v-if="pm25 === null || !pm25.length">沒有資料</span>
               <swiper v-else :options="swiperOption" class="swiper_ddddd">
                 <swiper-slide v-for="i in this.numOfPm25Slider" :key="i">
                   <WarnCard v-for="(item, idx) in pm25.slice( (i-1)*14, (i-1)*14+14)" :key="idx" type="pm25" :title="item.name" :val="item.value" width="200" />
@@ -99,6 +99,7 @@ import alertify from 'alertifyjs/build/alertify.min.js'
 import axios from 'axios'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import _ from 'lodash'
 
 export default {
   name: 'App',
@@ -172,10 +173,10 @@ export default {
       try {
         const res = await axios.get(Url)
         alertify.success('成功連接資料')
-        this.co2 = res.data.co2.sort((a, b) => (a.id - b.id))
-        this.temp = res.data.temperature
-        this.humidity = res.data.humidity
-        this.pm25 = res.data.pm25
+        this.co2 = _.get(res.data, 'co2') ? res.data.co2.sort((a, b) => (a.id - b.id)) : []
+        this.temp = _.get(res.data, 'temperature') ? res.data.temperature : []
+        this.humidity = _.get(res.data, 'humidity') ? res.data.humidity : []
+        this.pm25 = _.get(res.data, 'pm25') ? res.data.pm25 : []
       } catch (e) {
         alertify.error(e.message)
       }
