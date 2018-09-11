@@ -1,7 +1,8 @@
 <template>
-  <v-card v-if="type!=='pm25'" :color="color" class="white--text myCard" :width="width" >
+  <v-card v-if="type!=='pm25'" :color="color" class="white--text myCard" :width="width" :height="73">
     <div class="title">{{ title }}</div>
-    <v-divider light></v-divider>
+    <div class="divider"></div>
+    <!-- <v-divider :color="divider"></v-divider> -->
     <div class="val">{{ val }} {{ getUnit }}</div>
   </v-card>
 
@@ -28,12 +29,12 @@ export default {
     },
     color: {
       type: String,
-      default: 'd_cyan'
+      default: 'card'
 
     },
     width: {
       type: String,
-      default: '120'
+      default: '164'
     },
     type: {
       type: String,
@@ -79,15 +80,23 @@ export default {
     border-radius: 10px;
     display: inline-block;
     margin: 10px 6px;
+    box-shadow: none;
   }
   .title{
-    padding: 8px;
+    padding: 8px 4px 8px 17px;
+    font-size: 21px !important;
+  }
+  .divider{
+    background-color: #94DEDE;
+    height: 3px;
+    width: 100%;
   }
   .val{
     padding: 2px;
-    padding-left: 8px;
-    color: black;
-    font-size: 16px;
+    padding: 2px 4px 2px 17px;
+    // padding-left: 8px;
+    color: #800707;
+    font-size: 21px;
 
   }
 </style>

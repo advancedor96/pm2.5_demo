@@ -1,12 +1,13 @@
 <template>
   <div id="app">
     <v-app>
-      <v-toolbar dark color="cyan darken-2" :style="{flexGrow: '0'}">
+      <v-toolbar dark color="toolbar" :style="{flexGrow: '0', boxShadow: 'none'}">
         <div class="my_container">
           <v-toolbar-title>教室空氣異常</v-toolbar-title>
             <v-spacer></v-spacer>
             {{ time }}
-            <img src="/static/Bxb_Logo.svg" alt="logo" class="logo">
+            <div class="img_down"><img src="/static/Bxb_Logo.svg" alt="logo" class="logo"></div>
+            
         </div>
       </v-toolbar>
 
@@ -74,7 +75,7 @@
               <span  class="nodata" v-if="pm25 === null || !pm25.length">沒有資料</span>
               <swiper v-else :options="swiperOption" class="swiper_ddddd">
                 <swiper-slide v-for="i in this.numOfPm25Slider" :key="i">
-                  <WarnCard v-for="(item, idx) in pm25.slice( (i-1)*14, (i-1)*14+14)" :key="idx" type="pm25" :title="item.name" :val="item.value" width="200" />
+                  <WarnCard v-for="(item, idx) in pm25.slice( (i-1)*14, (i-1)*14+14)" :key="idx" type="pm25" :title="item.name" :val="item.value" width="214" />
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
               </swiper>
@@ -173,12 +174,12 @@ export default {
       if (process.env.NODE_ENV === 'production') {
         Url = '/Client?data1=air'
       } else {
-        Url = '/api/Client?data1=air' // 在本機讀真實資料
-        // Url = 'http://localhost:3000/air' // 使用 json-server
+        // Url = '/api/Client?data1=air' // 在本機讀真實資料
+        Url = 'http://localhost:3000/air' // 使用 json-server
       }
       try {
         const res = await axios.get(Url)
-        alertify.success('成功連接資料')
+        // alertify.success('成功連接資料') // 有錯誤才顯示
         this.co2 = _.get(res.data, 'co2') ? res.data.co2.sort((a, b) => (a.id - b.id)) : []
         this.temp = _.get(res.data, 'temperature') ? res.data.temperature : []
         this.humidity = _.get(res.data, 'humidity') ? res.data.humidity : []
@@ -201,6 +202,7 @@ export default {
 }
 .swiper_ddddd{
   height: 100%;
+  width: 100%;
 }
 .swiper-slide{
   display: flex;
@@ -212,18 +214,23 @@ export default {
 .v-toolbar__content{ // v-toolbar 多出來的 div 樣式
   justify-content: center;
   .v-toolbar__title{
-    font-size: 30px;
+    font-size: 39px;
   }
 }
 .logo{
-  width: 130px;
+  width: 74px;
 }
 .my_container{
-  max-width: 1300px;
+  max-width: 100%;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
+  .img_down{
+    display: flex;
+    height:77%;
+    align-items: flex-end;
+  }
 }
 .my_main{
   width: 100%;
@@ -236,7 +243,7 @@ export default {
     height: 92px;
     color: #424242;
     font-size: 31px;
-    font-weight: 500;
+    font-weight: 300;
     text-align: center;
     padding: 23px 20px;
     display: flex;

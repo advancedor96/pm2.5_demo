@@ -13,7 +13,11 @@ import '@/assets/css/notosans-fontface.css'
 Vue.config.productionTip = false
 Vue.use(Vuetify, {
   theme: {
-    d_cyan: '#3CC2C2',
+    toolbar: '#2A99B7',
+    card: '#3CC2C2',
+    divider: '#94DEDE',
+
+    d_cyan: '#2A99B7',
     d_green: '#09D342',
     d_orange: '#FFB600',
     d_red: '#BF0000'
