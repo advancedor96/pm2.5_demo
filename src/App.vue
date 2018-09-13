@@ -230,6 +230,10 @@ export default {
     height:77%;
     align-items: center;
   }
+
+  @media screen and (max-width: 767px){
+    flex-wrap: wrap;
+  }
 }
 .my_main{
   width: 100%;
@@ -269,6 +273,11 @@ export default {
       border-left: 1px solid rgba(0,0,0,0.2);
     }
 
+    @media screen and (max-width: 767px){
+      width: 100%;
+      min-width: none;
+      max-width: none;
+    }
   }
   .card_wrapper{
     display: flex;
@@ -278,7 +287,9 @@ export default {
     overflow-y: auto;
     align-content: flex-start;
     align-items: flex-start;
-    height: 730px;
+    // height: 730px;
+    min-height: 675px;
+    height: 690px;
 
   }
   .nodata{
