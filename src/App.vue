@@ -304,6 +304,8 @@ export default {
   }
   .nodata{
     font-size: 20px;
+    opacity: 0.3;
+
   }
 }
 </style>
