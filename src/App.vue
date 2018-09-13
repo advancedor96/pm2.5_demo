@@ -7,7 +7,6 @@
             <v-spacer></v-spacer>
             {{ time }}
             <div class="img_down"><img src="/static/Bxb_Logo.svg" alt="logo" class="logo"></div>
-            
         </div>
       </v-toolbar>
 
@@ -229,7 +228,7 @@ export default {
   .img_down{
     display: flex;
     height:77%;
-    align-items: flex-end;
+    align-items: center;
   }
 }
 .my_main{
