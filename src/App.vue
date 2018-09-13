@@ -6,7 +6,7 @@
           <v-toolbar-title>教室空氣異常</v-toolbar-title>
             <v-spacer></v-spacer>
             {{ time }}
-            <div class="img_down"><img src="/static/Bxb_Logo.svg" alt="logo" class="logo"></div>
+            <div class="img_down"><img src="/static/img/Bxb_Logo.svg" alt="logo" class="logo"></div>
         </div>
       </v-toolbar>
 
