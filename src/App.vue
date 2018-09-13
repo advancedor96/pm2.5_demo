@@ -68,13 +68,13 @@
           <span class="col">
             <div class="caterogy_title">
               <img src="/static/img/pm25.png" class="icon pm25" alt="">
-              <span>PM2.5</span>
+              <span :style="{fontWeight:'400'}">PM2.5</span>
             </div>
             <div class="card_wrapper">
               <span  class="nodata" v-if="pm25 === null || !pm25.length">沒有資料</span>
               <swiper v-else :options="swiperOption" class="swiper_ddddd">
                 <swiper-slide v-for="i in this.numOfPm25Slider" :key="i">
-                  <WarnCard v-for="(item, idx) in pm25.slice( (i-1)*14, (i-1)*14+14)" :key="idx" type="pm25" :title="item.name" :val="item.value" width="214" />
+                  <WarnCard v-for="(item, idx) in pm25.slice( (i-1)*14, (i-1)*14+14)" :key="idx" type="pm25" :title="item.name" :val="item.value" width="270" />
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
               </swiper>

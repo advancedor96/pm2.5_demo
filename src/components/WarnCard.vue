@@ -6,10 +6,14 @@
     <div class="val">{{ val }} {{ getUnit }}</div>
   </v-card>
 
-  <v-card v-else :color="getPm25Color" class="white--text myCard" :width="width" >
+  <v-card v-else :color="getPm25Color" class="white--text pm25Card" :width="width"
+    :class="{'gray_text': getPm25Color==='d_orange'}"
+  >
     <div class="title">{{ title }}</div>
     <v-divider light></v-divider>
-    <div class="val " :class="{'white--text': getPm25Color==='d_red'}">{{ getPm25Text }}</div>
+    <div class="val">
+      {{ getPm25Text }}
+    </div>
   </v-card>
 
 </template>
@@ -82,6 +86,20 @@ export default {
     margin: 10px 6px;
     box-shadow: none;
   }
+  .pm25Card{
+    border-radius: 10px;
+    display: inline-block;
+    margin: 10px 6px;
+    box-shadow: none;
+    color: white;
+    .val{
+      color: inherit;
+    }
+    &.gray_text{
+      color: #5E5E5E !important;
+    }
+
+  }
   .title{
     padding: 8px 4px 8px 17px;
     font-size: 21px !important;
@@ -94,9 +112,8 @@ export default {
   .val{
     padding: 2px;
     padding: 2px 4px 2px 17px;
-    // padding-left: 8px;
-    color: #800707;
     font-size: 21px;
+    color: #800707;
 
   }
 </style>
