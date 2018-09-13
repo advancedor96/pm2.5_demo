@@ -80,17 +80,17 @@ export default {
 
 <style lang="scss">
   .myCard{
-    border-radius: 10px;
-    display: inline-block;
-    margin: 10px 6px;
-    box-shadow: none;
+    border-radius: 10px !important;
+    display: inline-block !important;
+    margin: 10px 6px !important;
+    box-shadow: none !important;
   }
   .pm25Card{
-    border-radius: 10px;
-    display: inline-block;
-    margin: 10px 6px;
-    box-shadow: none;
-    color: white;
+    border-radius: 10px !important;
+    display: inline-block !important;
+    margin: 10px 6px !important;
+    box-shadow: none !important;
+    color: white !important;
     .val{
       color: inherit;
     }
