@@ -305,7 +305,11 @@ export default {
   .nodata{
     font-size: 20px;
     opacity: 0.3;
-
+    &:before{
+      content:'\e9e5';
+      font-family: 'IcoMoon-Free' !important;
+      margin-right: 3px;
+    }
   }
 }
 </style>
