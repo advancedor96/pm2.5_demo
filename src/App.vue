@@ -117,7 +117,11 @@ export default {
         },
         pagination: {
           el: '.swiper-pagination',
-          clickable: true
+          clickable: true,
+          renderBullet (index, className) {
+            return `<span class="ddddd ${className} swiper-pagination-bullet-custom"></span>`
+          }
+
         }
       },
       time: '',
@@ -198,10 +202,16 @@ export default {
 *{
   font-family: 'Roboto', 'Noto Sans', "Microsoft JhengHei";
   box-sizing: border-box;
+  user-select:none;
 }
 .swiper_ddddd{
   height: 100%;
   width: 100%;
+  .swiper-pagination-bullet-custom{
+    background-color: #878787;
+    width: 16px;
+    height: 16px;
+  }
 }
 .swiper-slide{
   display: flex;
