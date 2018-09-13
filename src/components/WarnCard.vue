@@ -11,8 +11,7 @@
   >
     <div class="title">{{ title }}</div>
     <v-divider light></v-divider>
-    <div class="val">
-      {{ getPm25Text }}
+    <div class="val" v-html="getPm25Text">
     </div>
   </v-card>
 
@@ -54,11 +53,11 @@ export default {
     },
     getPm25Text () {
       if (this.val >= 0 && this.val <= 35) {
-        return `😀 ${this.val} 良好`
+        return `<span class="icon icon-smile"></span> ${this.val} 良好`
       } else if (this.val >= 36 && this.val <= 53) {
-        return `😐 ${this.val} 對過敏族群不健康`
+        return `<span class="icon icon-sad"></span> ${this.val} 對過敏族群不健康`
       } else if (this.val >= 54) {
-        return `😡 ${this.val} 對所有族群不健康`
+        return `<span class="icon icon-sad"></span> ${this.val} 對所有族群不健康`
       } else {
         return `${this.val} 錯誤`
       }
