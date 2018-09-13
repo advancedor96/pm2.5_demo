@@ -74,7 +74,7 @@
               <span  class="nodata" v-if="pm25 === null || !pm25.length">沒有資料</span>
               <swiper v-else :options="swiperOption" class="swiper_ddddd">
                 <swiper-slide v-for="i in this.numOfPm25Slider" :key="i">
-                  <WarnCard v-for="(item, idx) in pm25.slice( (i-1)*14, (i-1)*14+14)" :key="idx" type="pm25" :title="item.name" :val="item.value" width="270" />
+                  <WarnCard v-for="(item, idx) in pm25.slice( (i-1)*7, (i-1)*7+7)" :key="idx" type="pm25" :title="item.name" :val="item.value" width="270" />
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
               </swiper>
@@ -177,8 +177,8 @@ export default {
       if (process.env.NODE_ENV === 'production') {
         Url = '/Client?data1=air'
       } else {
-        // Url = '/api/Client?data1=air' // 在本機讀真實資料
-        Url = 'http://localhost:3000/air' // 使用 json-server
+        Url = '/api/Client?data1=air' // 在本機讀真實資料
+        // Url = 'http://localhost:3000/air' // 使用 json-server
       }
       try {
         const res = await axios.get(Url)
