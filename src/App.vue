@@ -200,7 +200,7 @@ export default {
 @import '@/sass/all.scss';
 
 *{
-  font-family: 'Roboto', 'Noto Sans', "Microsoft JhengHei";
+  font-family: 'Roboto', 'Noto Sans', "Microsoft JhengHei" !important;
   box-sizing: border-box;
   user-select:none;
 }

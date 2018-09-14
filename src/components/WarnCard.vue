@@ -102,6 +102,7 @@ export default {
   .title{
     padding: 8px 4px 8px 17px;
     font-size: 21px !important;
+    font-family: 'Roboto', 'Noto Sans', "Microsoft JhengHei" !important;
   }
   .divider{
     background-color: #94DEDE;
