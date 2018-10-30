@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
   font-family: 'Noto Sans';
   src: url("/static/fonts/NotoSansCJKtc/NotoSansCJKtc-Regular.otf");
   font-weight: 400;
@@ -9,7 +9,7 @@
   src: url("/static/fonts/NotoSansCJKtc/NotoSansCJKtc-Medium.otf");
   font-weight: 500;
   font-style: normal;
-}
+} */
 
 /* @font-face {
   font-family: 'Noto Sans';
