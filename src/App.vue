@@ -3,7 +3,7 @@
     <v-app>
       <v-toolbar dark color="toolbar" :style="{flexGrow: '0', boxShadow: 'none'}">
         <div class="my_container">
-          <v-toolbar-title>教室空氣異常</v-toolbar-title>
+          <v-toolbar-title>教室空氣異常<span :style="{fontSize:'12px'}">{{ version }}</span></v-toolbar-title>
             <v-spacer></v-spacer>
             {{ time }}
             <div class="img_down"><img src="/static/img/Bxb_Logo.svg" alt="logo" class="logo"></div>
@@ -142,6 +142,9 @@ export default {
     // console.log('process.env.NODE_ENV', process.env.NODE_ENV)
   },
   computed: {
+    version () {
+      return process.env.VERSION
+    },
     // 計算Co2 的Swiper 總共要有幾頁(每頁14個)
     numOfCo2Slider () {
       let divide_num = Math.floor(this.co2.length / 14)
@@ -207,8 +210,8 @@ export default {
 .swiper_ddddd{
   height: 100%;
   width: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
   .swiper-pagination-bullet-custom{
     background-color: #878787;
     width: 16px;
