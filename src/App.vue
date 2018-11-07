@@ -207,6 +207,8 @@ export default {
 .swiper_ddddd{
   height: 100%;
   width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
   .swiper-pagination-bullet-custom{
     background-color: #878787;
     width: 16px;
