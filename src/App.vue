@@ -180,8 +180,8 @@ export default {
       if (process.env.NODE_ENV === 'production') {
         Url = '/Client?data1=air'
       } else {
-        Url = '/api/Client?data1=air' // 在本機讀真實資料
-        // Url = 'http://localhost:3000/air' // 使用 json-server
+        // Url = '/api/Client?data1=air' // 在本機讀真實資料
+        Url = 'http://localhost:3000/air' // 使用 json-server
       }
       try {
         const res = await axios.get(Url)
