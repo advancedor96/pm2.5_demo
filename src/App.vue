@@ -100,6 +100,7 @@ import axios from 'axios'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import _ from 'lodash'
+import db from '@/assets/db.json' // demo用，把api的假資料寫入前端。
 
 export default {
   name: 'App',
@@ -112,7 +113,7 @@ export default {
         spaceBetween: 0,
         centeredSlides: true,
         autoplay: {
-          delay: 1000 * 6, // 切換頁面間隔幾秒
+          delay: 1000 * 2, // 切換頁面間隔幾秒
           disableOnInteraction: false
         },
         pagination: {
@@ -176,20 +177,21 @@ export default {
   },
   methods: {
     async getData () {
-      let Url = ''
-      if (process.env.NODE_ENV === 'production') {
-        Url = '/Client?data1=air'
-      } else {
-        // Url = '/api/Client?data1=air' // 在本機讀真實資料
-        Url = 'http://localhost:3000/air' // 使用 json-server
-      }
+      const res = db.air
+
+      // let Url = ''
+      // if (process.env.NODE_ENV === 'production') {
+      //   Url = '/Client?data1=air'
+      // } else {
+      //   // Url = '/api/Client?data1=air' // 在本機讀真實資料
+      //   Url = 'http://localhost:3000/air' // 使用 json-server
+      // }
       try {
-        const res = await axios.get(Url)
-        // alertify.success('成功連接資料') // 有錯誤才顯示
-        this.co2 = _.get(res.data, 'co2') ? res.data.co2.sort((a, b) => (a.id - b.id)) : []
-        this.temp = _.get(res.data, 'temperature') ? res.data.temperature : []
-        this.humidity = _.get(res.data, 'humidity') ? res.data.humidity : []
-        this.pm25 = _.get(res.data, 'pm25') ? res.data.pm25 : []
+        // const res = await axios.get(Url)
+        this.co2 = _.get(res, 'co2') ? res.co2.sort((a, b) => (a.id - b.id)) : []
+        this.temp = _.get(res, 'temperature') ? res.temperature : []
+        this.humidity = _.get(res, 'humidity') ? res.humidity : []
+        this.pm25 = _.get(res, 'pm25') ? res.pm25 : []
       } catch (e) {
         alertify.error(e.message)
       }
