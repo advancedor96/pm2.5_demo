@@ -15,5 +15,5 @@ npm run dev
 npm run build
 ```
 會產生 dist/ 資料夾，裡面的東西就是最後的網頁了。
-(index.html中引用其他檔案預設是絕對路徑。放到 icp 時，若有問題可以注意一下)
+
 
