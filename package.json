@@ -13,7 +13,7 @@
   "dependencies": {
     "alertifyjs": "^1.11.1",
     "axios": "^0.18.0",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.19",
     "moment": "^2.22.2",
     "roboto-fontface": "^0.10.0",
     "vue": "^2.5.2",
